@@ -1,0 +1,23 @@
+#logo img {
+    height: 80px;
+    widows: 80px;
+}
+
+#action-btn {
+    bottom : 45px;
+    right: 25px;
+}
+
+main {
+    margin-top: 20px;
+}
+
+a#btn-parent {
+    margin-bottom: 20px;
+}
+
+.nav-account {
+    position: absolute;
+    bottom: 15%;
+    margin: 0 1rem 0 2rem;
+}
