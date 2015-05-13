@@ -6,7 +6,7 @@ require_once 'common.func.php';
 $path = "sitefile";
 $path=$_REQUEST['path']?$_REQUEST['path']:$path;
 $act=$_REQUEST['act'];
-$filename=$_REQUEST['filename'];//nihao 
+$filename=$_REQUEST['filename'];
 
 
 if($act=="delFile"){
