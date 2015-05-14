@@ -36,6 +36,12 @@ $info = readdirectory($path);
                 location.href="file.php?act=delFile&filename="+filename;
             }
         }
+        function goBack()
+        {
+            if("<?php echo $path;?>"!=="sitefile"){
+                window.history.back()
+            }
+        }
         </script>
     </head>
 
@@ -109,7 +115,7 @@ $info = readdirectory($path);
                         <div id="explorer" class="section scrollspy">
                             
                             <h2 class="header">FileManager</h2>
-                            <a id="btn-parent" class="waves-effect waves-light btn"><i class="mdi-navigation-arrow-back left"></i>Parent</a>
+                            <a onclick="goBack()" id="btn-parent" class="waves-effect waves-light btn"><i class="mdi-navigation-arrow-back left"></i>Parent</a>
                             <a id="btn-parent" class="waves-effect waves-light btn">Upload</a>
                             <table id="file-table" class="hoverable responsive-table">
                                 <thead>
@@ -140,9 +146,50 @@ $info = readdirectory($path);
                                         </p>
                                     </th>
                                 </thead>
+                                
+                                
+                                <!-- 读目录 -->
+                                <?php 
+                                $i = 1;
+                                if($info['dir']){
+                                    foreach ($info['dir'] as $val){
+                                ?>
+                                
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                <?php echo "<input type=\"checkbox\" id=\"checkbox-file".$i."\" />";?>
+                                                <?php echo "<label for=\"checkbox-file".$i."\"></label>";?>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <a href="file.php?path=<?php echo $path."/".$val?>"><?php echo $val;?></a>
+                                        </td>
+                                        <td>
+                                            <?php echo transByte(dirsize($path."/".$val));?>
+                                        </td>
+                                        <td>
+                                            <?php echo date("Y-m-d",filectime($path."/".$val));?>
+                                        </td>
+                                        <td>
+                                            <a href="file.php?act=downFile&filename=<?php echo $path."/".$val;?>">Download</a>
+                                            <a href="#" onclick="delFile('<?php echo $path."/".$val;?>')">Delete</a>
+                                        </td>
+                                    
+                                    </tr>
+                                
+                                </tbody>
+                                <?php
+                                    $i++;
+                                    }
+                                }
+                                ?>
+                                
+                                
+                                <!-- 读文件 -->
                                 <?php 
                                 if($info['file']){
-                                    $i = 1;
                                     foreach ($info['file'] as $val){
                                 ?>
                                 
@@ -176,6 +223,7 @@ $info = readdirectory($path);
                                     }
                                 }
                                 ?>
+                                
                             </table>
                         </div>
                     </div>
