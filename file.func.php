@@ -17,9 +17,7 @@ function transByte($size)
 }
 
 function delFile($filename){
-    if(unlink($filename))
-        return true;
-    else return false;
+    unlink($filename);
 }
 
 function downFile_fake($filename){
@@ -262,8 +260,11 @@ function uploadfile($fileInfo, $uploadpath = "sitefile", $maxSize = 2097152)
         exit('文件上传失败!');
     }
     
-    alert('文件上传成功!', "file.php");
-    ChangeUrl("file.php");
+    if($uploadpath=="sitefile"){
+        alert('文件上传成功!', "file.php");
+    }else{
+        alert('文件上传成功!', "file.php?path=".$uploadpath);
+    }
     
     
     return $existedFlag;

@@ -1,6 +1,6 @@
 <?php
 function ChangeUrl($url){
-    echo "<script type='text/javascript'>location.href='{$url}';</script>";
+    echo "<script type='text/javascript'>location.href='$url';</script>";
 }
 
 function alert ($msg,$url="")

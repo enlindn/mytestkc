@@ -46,6 +46,5 @@ function delFolder($path){
     }
     closedir($handle);
     rmdir($path);
-    return "文件夹删除成功";
 }
 ?>

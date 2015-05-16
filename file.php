@@ -11,13 +11,21 @@ $dirname=$_REQUEST['dirname'];
 
 
 if($act=="delFile"){
-    $delFlag = delFile($filename);
-    ChangeUrl("file.php");
+    delFile($filename);
+    if($path=="sitefile"){
+        ChangeUrl("file.php");
+    }else{
+        ChangeUrl("file.php?path=".$path);
+   }
 }elseif($act=="downFile"){
-    downFile($filename);
+    downFile($filename,$path);
+    if($path=="sitefile"){
+        ChangeUrl("file.php");
+    }else{
+        ChangeUrl("file.php?path=".$path);
+    }
 }elseif($act=="delFolder"){
-    $delFlag = delFolder($dirname);
-    ChangeUrl("file.php");
+    delFolder($dirname,$path);
 }
 
 $info = readdirectory($path);
@@ -34,21 +42,21 @@ $info = readdirectory($path);
         <link type="text/css" rel="stylesheet" href="css/index.css"/>
         <title>Index</title>
         <script type="text/javascript">
-        function delFile(filename){
+        function delFile(filename,path){
             if(window.confirm("confirm of delete?")){
                 Materialize.toast("delete complete!",1000);
-                location.href="file.php?act=delFile&filename="+filename;
+                location.href="file.php?act=delFile&filename="+filename+"&path="+path;
             }
         }
-        function delFolder(dirname){
+        function delFolder(dirname,path){
         	if(window.confirm("confirm of delete?")){
                 Materialize.toast("delete complete!",1000);
-                location.href="file.php?act=delFolder&dirname="+dirname;
+                location.href="file.php?act=delFolder&dirname="+dirname+"&path="+path;
             }
         }
-        function goBack(back){
-            if(back!=="sitefile")
-            	location.href="file.php?path="+back;
+        function goBack(back,isbootflag){
+            if(!isbootflag)
+                location.href="file.php?path="+back;
             else
             	Materialize.toast("It's Root Directory!",1000);
         }
@@ -139,8 +147,16 @@ $info = readdirectory($path);
                             </button>
                             </form>
                             <p></p>
-                            <?php $back=($path=="sitefile")?"sitefile":dirname($path);?>
-                            <a onclick="goBack('<?php echo $back;?>')" id="btn-parent" class="waves-effect waves-light btn"><i class="mdi-navigation-arrow-back left"></i>Parent</a>
+                            <?php 
+                            $isbootflag=true;
+                            if($path=="sitefile"){
+                                $back="sitefile";
+                            }else{
+                                $back=dirname($path);
+                                $isbootflag=false;
+                            }
+                            ?>
+                            <a onclick="goBack('<?php echo $back;?>','<?php echo $isbootflag;?>')" id="btn-parent" class="waves-effect waves-light btn"><i class="mdi-navigation-arrow-back left"></i>Parent</a>
                             <table id="file-table" class="hoverable responsive-table">
                                 <thead>
                                     <th data-field="checkbox-all">
@@ -188,7 +204,7 @@ $info = readdirectory($path);
                                             </p>
                                         </td>
                                         <td>
-                                            <a href="file.php?path=<?php echo $path."/".$val?>"><?php echo $val;?></a>
+                                            <?php echo $val;?>
                                         </td>
                                         <td>
                                             <?php echo transByte(dirsize($path."/".$val));?>
@@ -197,8 +213,9 @@ $info = readdirectory($path);
                                             <?php echo date("Y-m-d",filectime($path."/".$val));?>
                                         </td>
                                         <td>
-                                            <a href="file.php?act=downFile&filename=<?php echo $path."/".$val;?>">Download</a>
-                                            <a href="#" onclick="delFolder('<?php echo $path."/".$val;?>')">Delete</a>
+                                            <a href="file.php?path=<?php echo $path."/".$val?>">Check&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                            <!--<a href="file.php?act=downFile&filename=<?php echo $path."/".$val;?>">Download</a>-->
+                                            <a href="#" onclick="delFolder('<?php echo $path."/".$val;?>','<?php echo $path;?>')">Delete</a>
                                         </td>
                                     
                                     </tr>
@@ -236,7 +253,7 @@ $info = readdirectory($path);
                                         </td>
                                         <td>
                                             <a href="file.php?act=downFile&filename=<?php echo $path."/".$val;?>">Download</a>
-                                            <a href="#" onclick="delFile('<?php echo $path."/".$val;?>')">Delete</a>
+                                            <a href="#" onclick="delFile('<?php echo $path."/".$val;?>','<?php echo $path;?>')">Delete</a>
                                         </td>
                                     
                                     </tr>
