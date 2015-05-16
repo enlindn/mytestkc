@@ -5,8 +5,6 @@ include_once 'file.func.php';
 include_once 'common.func.php';
 $fileInfo=$_FILES['myFile'];
 $path=$_POST["pathname"];
-print_r($fileInfo);
-echo "<br/>".$path;
 //print_r($fileInfo);
 uploadfile($fileInfo,$path);
 ?>

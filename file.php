@@ -1,5 +1,6 @@
 ﻿<?php
 error_reporting(E_ALL ^ E_NOTICE);
+header('content-type:text/html;charset=GBK');
 require_once 'dir.func.php';
 require_once 'file.func.php';
 require_once 'common.func.php';
@@ -12,11 +13,11 @@ $dirname=$_REQUEST['dirname'];
 
 if($act=="delFile"){
     delFile($filename);
-    if($path=="sitefile"){
+  /* if($path=="sitefile"){
         ChangeUrl("file.php");
     }else{
         ChangeUrl("file.php?path=".$path);
-   }
+   }*/
 }elseif($act=="downFile"){
     downFile($filename,$path);
     if($path=="sitefile"){
@@ -25,7 +26,12 @@ if($act=="delFile"){
         ChangeUrl("file.php?path=".$path);
     }
 }elseif($act=="delFolder"){
-    delFolder($dirname,$path);
+    delFolder($dirname);
+    if($path=="sitefile"){
+        ChangeUrl("file.php");
+    }else{
+        ChangeUrl("file.php?path=".$path);
+    }
 }
 
 $info = readdirectory($path);

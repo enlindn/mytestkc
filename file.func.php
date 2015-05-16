@@ -17,7 +17,12 @@ function transByte($size)
 }
 
 function delFile($filename){
-    unlink($filename);
+    if(!is_file($filename)){
+        alert("Cant operate Chinese items! Please contact your server master!","file.php");
+        exit();
+    }else{
+        unlink($filename);
+    }
 }
 
 function downFile_fake($filename){
@@ -257,15 +262,14 @@ function uploadfile($fileInfo, $uploadpath = "sitefile", $maxSize = 2097152)
         }
     }
     if (! @move_uploaded_file($fileInfo['tmp_name'], $destination)) {
-        exit('文件上传失败!');
+        alert('文件上传失败!', "file.php");
+    } else {   
+        if ($uploadpath == "sitefile") {
+            alert('文件上传成功!', "file.php");
+        } else {
+            alert('文件上传成功!', "file.php?path=" . $uploadpath);
+        }
     }
-    
-    if($uploadpath=="sitefile"){
-        alert('文件上传成功!', "file.php");
-    }else{
-        alert('文件上传成功!', "file.php?path=".$uploadpath);
-    }
-    
     
     return $existedFlag;
 }
