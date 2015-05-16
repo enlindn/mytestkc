@@ -31,4 +31,21 @@ function dirsize($path){
     closedir($handle);
     return $sum;
 }
+
+function delFolder($path){
+    $handle=opendir($path);
+    while(($item=readdir($handle))!==false){
+        if($item!="."&&$item!=".."){
+            if(is_file($path."/".$item)){
+                unlink($path."/".$item);
+            }
+            if(is_dir($path."/".$item)){
+                delFolder($path."/".$item);
+            }
+        }
+    }
+    closedir($handle);
+    rmdir($path);
+    return "文件夹删除成功";
+}
 ?>

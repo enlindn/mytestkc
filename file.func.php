@@ -1,5 +1,5 @@
 <?php
-
+include_once 'common.func.php';
 function transByte($size)
 {
     $arr = array(
@@ -184,3 +184,126 @@ function downFile($fileName, $fancyName = '', $forceDownload = true, $speedLimit
     }
     return true;
 }
+
+function findIfExisted($uploadpath,$filename){
+    $handle=opendir($uploadpath);
+    $existedFlag = 0;
+    while(($item=readdir($handle))!==false){
+        if($item!="."&&$item!=".."){
+            if(is_file($uploadpath."/".$item)){
+                if($item==$filename)
+                    $existedFlag = 1;
+            }
+        }
+    }
+    closedir($handle);
+    return $existedFlag;
+}
+
+
+function uploadfile($fileInfo, $uploadpath = "sitefile", $maxSize = 2097152)
+{
+    if ($fileInfo['error'] > 0) {
+        switch ($fileInfo['error']) {
+            case 1:
+                $mes = '文件大小不符合!';
+                break;
+            case 2:
+                $mes = '文件大小不符合!';
+                break;
+            case 3:
+                $mes = '文件部分被上传!';
+                break;
+            case 4:
+                $mes = '没有选择文件!';
+                break;
+            case 6:
+                $mes = '没有找到临时目录!';
+                break;
+            case 7:
+                $mes = '系统错误!';
+                break;
+        }
+        alert($mes, "file.php");
+        exit();
+    }
+  
+    // $maxSize=2097152;
+    if ($fileInfo['size'] > $maxSize) {
+        alert('文件太大!', "file.php");
+        exit();
+    }
+    
+    if (! is_uploaded_file($fileInfo['tmp_name'])) {
+        alert('文件不是通过HTTP POST方式上传上来的!', "file.php");
+        exit();
+    }
+    
+    if (! file_exists($uploadpath)) {
+        alert('路径无效!', "file.php");
+        exit();
+    }
+    
+    $existedFlag = findIfExisted($uploadpath, $fileInfo['name']);
+    
+    if(!$existedFlag){
+        $destination=$uploadpath.'/'.$fileInfo['name'];
+    }else{
+        onlyalert("文件是重复的,已重命名!");
+        $i=1;
+        $ext=pathinfo($fileInfo['name'],PATHINFO_EXTENSION);
+        $destination=$uploadpath.'/'.basename($fileInfo['name'],".".$ext)." (".$i.").".$ext;
+        while(findIfExisted($uploadpath, basename($fileInfo['name'],".".$ext)." (".$i.").".$ext)){
+            $i++;
+            $destination=$uploadpath.'/'.basename($fileInfo['name'],".".$ext)." (".$i.").".$ext;
+        }
+    }
+    if (! @move_uploaded_file($fileInfo['tmp_name'], $destination)) {
+        exit('文件上传失败!');
+    }
+    
+    alert('文件上传成功!', "file.php");
+    ChangeUrl("file.php");
+    
+    
+    return $existedFlag;
+}
+
+/*function doupload($uploadpath, $fileInfo)
+{
+    $destination=$uploadpath.'/'.$fileInfo['name'];
+    if (! @move_uploaded_file($fileInfo['tmp_name'], $destination)) {
+        exit('文件上传失败!');
+    }
+    
+    alert('文件上传成功!', "file.php");
+}
+
+function doupload_existed($uploadpath, $fileInfo)
+{
+    $ext=pathinfo($fileInfo['name'],PATHINFO_EXTENSION);
+    $destination=$uploadpath.'/'.basename($fileInfo['name'],".".$ext)." (1).".$ext;
+    if (! @move_uploaded_file($fileInfo['tmp_name'], $destination)) {
+        //alert('文件移动失败!', "file.php");
+        exit('文件上传失败!');
+    }
+
+    alert('文件上传成功!', "file.php");
+}
+
+function doupload($uploadpath,$fileInfo,$iscflag)
+{
+    if(!$iscflag){
+        $destination=$uploadpath.'/'.$fileInfo['name'];
+    }else{
+        $ext=pathinfo($fileInfo['name'],PATHINFO_EXTENSION);
+        $destination=$uploadpath.'/'.basename($fileInfo['name'],".".$ext)." (1).".$ext;
+    }
+    if (! @move_uploaded_file($fileInfo['tmp_name'], $destination)) {
+        exit('文件上传失败!');
+    }
+
+    alert('文件上传成功!', "file.php");
+    ChangeUrl("file.php");
+}*/
+?>

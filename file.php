@@ -7,6 +7,7 @@ $path = "sitefile";
 $path=$_REQUEST['path']?$_REQUEST['path']:$path;
 $act=$_REQUEST['act'];
 $filename=$_REQUEST['filename'];
+$dirname=$_REQUEST['dirname'];
 
 
 if($act=="delFile"){
@@ -14,6 +15,9 @@ if($act=="delFile"){
     ChangeUrl("file.php");
 }elseif($act=="downFile"){
     downFile($filename);
+}elseif($act=="delFolder"){
+    $delFlag = delFolder($dirname);
+    ChangeUrl("file.php");
 }
 
 $info = readdirectory($path);
@@ -36,11 +40,17 @@ $info = readdirectory($path);
                 location.href="file.php?act=delFile&filename="+filename;
             }
         }
-        function goBack()
-        {
-            if("<?php echo $path;?>"!=="sitefile"){
-                window.history.back()
+        function delFolder(dirname){
+        	if(window.confirm("confirm of delete?")){
+                Materialize.toast("delete complete!",1000);
+                location.href="file.php?act=delFolder&dirname="+dirname;
             }
+        }
+        function goBack(back){
+            if(back!=="sitefile")
+            	location.href="file.php?path="+back;
+            else
+            	Materialize.toast("It's Root Directory!",1000);
         }
         </script>
     </head>
@@ -115,8 +125,22 @@ $info = readdirectory($path);
                         <div id="explorer" class="section scrollspy">
                             
                             <h2 class="header">FileManager</h2>
-                            <a onclick="goBack()" id="btn-parent" class="waves-effect waves-light btn"><i class="mdi-navigation-arrow-back left"></i>Parent</a>
-                            <a id="btn-parent" class="waves-effect waves-light btn">Upload</a>
+                            <form action="uploadaction.php" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name = "pathname" value= "<?php echo $path;?>" />
+                            <div class="file-field input-field">
+                            <input class="file-path validate" type="text"/>
+                                 <div class="btn">
+                                    <span>File</span>
+                                 <input type="file" name="myFile"/>
+                                 </div>
+                            </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Upload
+                                <i class="mdi-content-send right"></i>
+                            </button>
+                            </form>
+                            <p></p>
+                            <?php $back=($path=="sitefile")?"sitefile":dirname($path);?>
+                            <a onclick="goBack('<?php echo $back;?>')" id="btn-parent" class="waves-effect waves-light btn"><i class="mdi-navigation-arrow-back left"></i>Parent</a>
                             <table id="file-table" class="hoverable responsive-table">
                                 <thead>
                                     <th data-field="checkbox-all">
@@ -174,7 +198,7 @@ $info = readdirectory($path);
                                         </td>
                                         <td>
                                             <a href="file.php?act=downFile&filename=<?php echo $path."/".$val;?>">Download</a>
-                                            <a href="#" onclick="delFile('<?php echo $path."/".$val;?>')">Delete</a>
+                                            <a href="#" onclick="delFolder('<?php echo $path."/".$val;?>')">Delete</a>
                                         </td>
                                     
                                     </tr>
