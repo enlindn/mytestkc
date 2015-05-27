@@ -45,4 +45,4 @@ function fetchAll($sql, $result_type = MYSQL_ASSOC) {
     return $rows;
 }
 
-connectDatabase();
+//connectDatabase();
