@@ -2,6 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Illution
- * Date: 5/25/15
- * Time: 21:07
+ * Date: 5/27/15
+ * Time: 20:38
  */
+
+session_start();

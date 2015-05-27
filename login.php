@@ -1,8 +1,5 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta charset="UTF-8">
@@ -18,21 +15,21 @@ session_start();
         <div id="login-box">
             <div class="card-panel center">
                 <div class="row">
-                    <form action="php/doAction.php?act=login" method="post" class="col s12">
+                    <form class="col s12">
                         <div class="input-field col s12">
                             <i class="mdi-action-account-circle prefix"></i>
-                            <input id="icon_username" name="username" type="text" class="validate">
+                            <input id="icon_username" type="text" class="validate">
                             <label for="icon_username">User Name</label>
                         </div>
                         <div class="input-field col s12">
                             <i class="mdi-action-lock-outline prefix"></i>
-                            <input id="icon_password" name="password" type="password" class="validate">
+                            <input id="icon_password" type="password" class="validate">
                             <label for="icon_password">Password</label>
                         </div>
                         <div class="col s12 divider">
                         </div>
                         <div class="col s6 cen">
-                            <a id="login-in" type="submit" class="btn waves-effect waves-light blue">Login In</a>
+                            <a id="login-in" href="index1.php" type="submit" class="btn waves-effect waves-light blue">Login In</a>
                         </div>
                         <div class="col s6">
                             <a href="#login-help-modal" class="modal-trigger waves-effect waves-green btn-flat blue-text text-lighten-2">Help</a>

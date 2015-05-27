@@ -8,6 +8,7 @@ $(document).ready(function() {
     $('.button-collapse').sideNav({'edge': 'left'});
     $('.datepicker').pickadate({selectYears: 20});
     $('select').not('.disabled').material_select();
+<<<<<<< Updated upstream
 
 });
 
@@ -32,4 +33,6 @@ $("#login-out").click(function() {
     	}
     });
     return false;
+=======
+>>>>>>> Stashed changes
 });
