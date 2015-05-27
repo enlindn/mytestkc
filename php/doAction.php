@@ -15,51 +15,57 @@ require_once $root."/common.func.php";
 
 
 $action = $_GET['action'];
+
 switch ($action) {
-    case 'loginin':
+	case 'loginin':
         $username = stripslashes(trim($_POST['username']));
         $password = stripslashes(trim($_POST['password']));
         if (empty($username)) {
-            $arr['success'] = 0;
+            $arr['success'] = 1;
             $arr['msg'] = "empty username";
         } else if (empty($password)) {
-            $arr['success'] = 0;
+            $arr['success'] = 1;
             $arr['msg'] = "empty password";
         } else {
-            $con = connectDatabase();
+            
+			$con = connectDatabase();
             if (!$con) {
-                $arr['success'] = 0;
+                $arr['success'] = 1;
                 $arr['msg'] = 'Can not connect to database!';
                 break;
             } else {
+				
                 $sql = "select * from admin where username = '{$username}' and password = '{$password}'";
                 $row = fetchOne($sql);
                 if ($row) {
-                    $arr['success'] = 1;
+                   $arr['success'] = 1;
                     $_SESSION['adminid'] = $row['id'];
                     $_SESSION['username'] = $row['username'];
-                    $arr['msg'] = "welcome, " . $_SESSION['username'];
+                  $arr['msg'] = "welcome, " . $_SESSION['username'];
                 } else {
                     $arr['success'] = 0;
                     $arr['msg'] = 'Wrong username or password!';
                 }
+				
             }
+			
+			
         }
         break;
-//    case 'loginout':
-//        $_SESSION = array();
-//        if (isset($_COOKIE[session_name()])) {
-//            setcookie(session_name(), time() - 1);
-//        }
-//        $arr['success'] = 1;
-//        $arr['msg'] = 'Login out successfully!';
-//        break;
-    default:
+    case 'loginout':
+        $_SESSION['adminid'] = '';
+		$_SESSION['username'] = '';
+		
+        $arr['success'] = 1;
+        $arr['msg'] = 'Login out successfully!';
+        break;
+   default:
         $arr['success'] = 0;
         $arr['msg'] = 'Action ' . $action . ' Unknown!';
         break;
 }
-$arr['session'] = $_SESSION;
+
+//$arr['session'] = $_SESSION;
 echo json_encode($arr);
 
 

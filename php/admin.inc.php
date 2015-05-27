@@ -14,7 +14,7 @@ function checkAdmin($sql) {
 }
 
 function checkLogined() {
-    if (!isset($_SESSION['adminid'])) {
+    if ($_SESSION['adminid'] == '') {
         header("location: index.php");
     }
 }

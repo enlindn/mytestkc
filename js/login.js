@@ -39,6 +39,9 @@ $("#login-in").click(function() {
             beforeSend: function () {
                 Materialize.toast("Authenticating...", 1000);
             },
+	    error: function (json) {
+
+		alert(json.sucess);},
             success: function (json) {
                 if (json.success == 1) {
                     Materialize.toast(json.msg, 1000);

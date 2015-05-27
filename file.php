@@ -6,8 +6,11 @@ require_once 'dir.func.php';
 require_once 'file.func.php';
 require_once 'common.func.php';
 require_once "php/admin.inc.php";
-//checkLogined();
-print_r($_SESSION);
+
+if ($_SESSION['adminid'] == '') {
+	header("location: index.php");
+}
+
 $path = "sitefile";
 $path=$_REQUEST['path']?$_REQUEST['path']:$path;
 $act=$_REQUEST['act'];
