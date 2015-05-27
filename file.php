@@ -1,18 +1,16 @@
-﻿<?php
+<?php
+session_start();
 error_reporting(E_ALL ^ E_NOTICE);
 header('content-type:text/html;charset=GBK');
 require_once 'dir.func.php';
 require_once 'file.func.php';
 require_once 'common.func.php';
-<<<<<<< Updated upstream
 require_once "php/admin.inc.php";
 
 if ($_SESSION['adminid'] == '') {
 	header("location: index.php");
 }
 
-=======
->>>>>>> Stashed changes
 $path = "sitefile";
 $path=$_REQUEST['path']?$_REQUEST['path']:$path;
 $act=$_REQUEST['act'];
@@ -131,7 +129,13 @@ $info = readdirectory($path);
                     <a href="setting.html" class="waves-effects waves-teal">Setting</a>
                 </li>
                 <li class="nav-account">
-                    <a href="#!" class="btn-flat waves-effect waves-green red-text"><i class="left mdi-action-account-circle red-text"></i>Login Out</a>
+                    <span class="center-text">
+                        Welcome, 
+                        <?php
+                            echo $_SESSION['username'];
+                        ?>
+                    </span>
+                    <a href="" class="btn-flat waves-effect waves-green red-text" id="login-out"><i class="left mdi-action-account-circle red-text"></i>Login Out</a>
                 </li>
             </ul>
         </header>

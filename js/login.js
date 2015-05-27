@@ -1,13 +1,4 @@
 $(document).ready(function(){
-    //press enter
-    $('input#icon_password').keydown(function(e) {
-        if (e.which == 13) {
-            $("#login-in").click();
-            return false;
-        } 
-    });
-    
-    
     // Plugin initialization
     $('.slider').slider({full_width: true});
     $('.tab-demo').show().tabs();
@@ -17,9 +8,17 @@ $(document).ready(function(){
     $('.button-collapse').sideNav({'edge': 'left'});
     $('.datepicker').pickadate({selectYears: 20});
     $('select').not('.disabled').material_select();
+
+
+    //press enter in password input
+    $('input#icon_password').keydown(function(e) {
+        if (e.which == 13) {
+            $("#login-in").click();
+            return false;
+        }
+    });
 });
 
-<<<<<<< Updated upstream
 $("#login-in").click(function() {
     var username = $('#icon_username').val();
     var password = $('#icon_password').val();
@@ -59,6 +58,3 @@ $("#login-in").click(function() {
     return false;
 });
  
-=======
-
->>>>>>> Stashed changes

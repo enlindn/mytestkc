@@ -25,4 +25,8 @@ function onlyalert ($msg)
     $str.="alert('".$msg."');";
     echo $str.='</script>';
 }
+
+//function toastMes ($msg, $url="#") {
+//    echo "<script>Materialize.toast('{$msg}', 1000)</script>";
+//}
 ?>
