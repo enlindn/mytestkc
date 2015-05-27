@@ -1,108 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <!--    css here    -->
         <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="css/ghpages-materialize.css"/>
-        <link type="text/css" rel="stylesheet" href="css/index.css"/>
-        <title>Index</title>
+
+        <link href="css/login.css" rel="stylesheet">
+        <title>Login</title>
     </head>
 
-    <body>
-        <header>
-            <nav class="top-nav">
-                <div class="container">
-                    <div class="nav-wrapper">
-                        <a class="page-title">Title Here</a>
-                    </div>
-                </div>
-            </nav>
-            <div class="container">
-                <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full">
-                    <i class="mdi-navigation-menu">
-                    </i>
-                </a>
-            </div>
-            <ul id="nav-mobile" class="side-nav fixed">
-                <li id="logo" class="logo">
-                    <a id="logo-container" href="#" class="brand-logo">
-                        <img class="responsive-img" src="images/logo.png">
-                    </a>
-                </li>
-                <li class="bold">
-                    <a href="about.html" class="waves-effects waves-teal">About</a>
-                </li>
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li class="bold">
-                            <a class="collapsible-header  waves-effect waves-teal">
-                                Help
-                            </a>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li><a href="account.html">Account</a></li>
-                                    <li><a href="usage.html">Usage</a></li>
-                                    <li><a href="author.html">Author</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="bold">
-                    <a href="file.php" class="waves-effects waves-teal">File</a>
-                </li>
-                <li class="bold">
-                    <a href="database.html" class="waves-effects waves-teal">Database</a>
-                </li>
-                <li class="bold">
-                    <a href="terminal.html" class="waves-effects waves-teal">Terminal</a>
-                </li>
-                <li class="bold">
-                    <a href="setting.html" class="waves-effects waves-teal">Setting</a>
-                </li>
-            </ul>
-        </header>
-        <main>
-            
-            <div class="container">
+    <body class=" lime lighten-3">
+        <div id="login-box">
+            <div class="card-panel center">
                 <div class="row">
-                    <div class="col s12">
-                        
-                    </div>
+                    <form action="php/doAction.php?act=login" method="post" class="col s12">
+                        <div class="input-field col s12">
+                            <i class="mdi-action-account-circle prefix"></i>
+                            <input id="icon_username" name="username" type="text" class="validate">
+                            <label for="icon_username">User Name</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="mdi-action-lock-outline prefix"></i>
+                            <input id="icon_password" name="password" type="password" class="validate">
+                            <label for="icon_password">Password</label>
+                        </div>
+                        <div class="col s12 divider">
+                        </div>
+                        <div class="col s6 cen">
+                            <a id="login-in" type="submit" class="btn waves-effect waves-light blue">Login In</a>
+                        </div>
+                        <div class="col s6">
+                            <a href="#login-help-modal" class="modal-trigger waves-effect waves-green btn-flat blue-text text-lighten-2">Help</a>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </main>
-        <action-btn>
-            <div id="action-btn" class="fixed-action-btn">
-                <a class="btn-floating btn-large red">
-                    <i class="large mdi-navigation-apps"></i>
-                </a>
-                <ul>
-                    <li><a class="btn-floating blue"><i class="large mdi-editor-publish"></i></a></li>
-                    <li><a class="btn-floating yellow"><i class="large mdi-action-perm-identity"></i></a></li>
-                </ul>
+        </div>
+        
+        <div id="login-help-modal" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Login Help</h4>
+                <p>Call me!</p>
             </div>
-        </action-btn>
-        <footer class="page-footer">
-            <div class="container">
-                <div class="row">
-                
-                </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">OK</a>
             </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    © 2014-2015 CMS, All rights reserved.
-                    <a class="grey-text text-lighten-4 right" href="https://github.com/Dogfalo/materialize/blob/master/LICENSE">MIT License</a>
-                </div>
-                
-            </div>
-        </footer>
+        </div>
+ 
+      
         <!--    script here -->
         <script type="text/javascript" src="jquery/1.11.2/jquery.min.js"></script>
         <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
     </body>
 </html>
