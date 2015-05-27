@@ -11,9 +11,7 @@ require_once $root."/lib/mysql.func.php";
 require_once $root."/common.func.php";
 
 
-if (!session_start()) {
     session_start();
-}
 
 
 $action = $_GET['action'];
@@ -40,7 +38,7 @@ switch ($action) {
                     $arr['success'] = 1;
                     $_SESSION['adminid'] = $row['id'];
                     $_SESSION['username'] = $row['username'];
-                    $arr['msg'] = "welcome, ".$username;
+                    $arr['msg'] = "welcome, " . $_SESSION['username'];
                 } else {
                     $arr['success'] = 0;
                     $arr['msg'] = 'Wrong username or password!';
@@ -48,20 +46,20 @@ switch ($action) {
             }
         }
         break;
-    case 'loginout':
-        $_SESSION = array();
-        if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), time() - 1);
-        }
-        session_destroy();
-        $arr['success'] = 1;
-        $arr['msg'] = 'Login out successfully!';
-        break;
+//    case 'loginout':
+//        $_SESSION = array();
+//        if (isset($_COOKIE[session_name()])) {
+//            setcookie(session_name(), time() - 1);
+//        }
+//        $arr['success'] = 1;
+//        $arr['msg'] = 'Login out successfully!';
+//        break;
     default:
         $arr['success'] = 0;
         $arr['msg'] = 'Action ' . $action . ' Unknown!';
         break;
 }
+$arr['session'] = $_SESSION;
 echo json_encode($arr);
 
 

@@ -42,6 +42,9 @@ $("#login-in").click(function() {
             success: function (json) {
                 if (json.success == 1) {
                     Materialize.toast(json.msg, 1000);
+                    for (var item in json.session) {
+                        Materialize.toast(item + ": " + json.session[item] , 2000);
+                    }
                     window.location.href = "file.php";
                 } else {
                     Materialize.toast(json.msg, 1000);

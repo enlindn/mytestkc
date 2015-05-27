@@ -1,14 +1,13 @@
 <?php
-if (!session_start()) {
-    session_start();
-}
+session_start();
 error_reporting(E_ALL ^ E_NOTICE);
 header('content-type:text/html;charset=GBK');
 require_once 'dir.func.php';
 require_once 'file.func.php';
 require_once 'common.func.php';
 require_once "php/admin.inc.php";
-checkLogined();
+//checkLogined();
+print_r($_SESSION);
 $path = "sitefile";
 $path=$_REQUEST['path']?$_REQUEST['path']:$path;
 $act=$_REQUEST['act'];
