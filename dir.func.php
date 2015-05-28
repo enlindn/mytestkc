@@ -34,8 +34,8 @@ function dirsize($path){
 
 function delFolder($path)
 {
-    if (! is_file($filename)) {
-        alert("Cant operate Chinese items! Please contact your server master!", "file.php");
+    if (! is_dir($path)) {
+        alert("Cant find the folder,or its name has Chinese character!", "file.php");
         exit();
     } else {
         $handle = opendir($path);

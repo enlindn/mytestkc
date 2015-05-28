@@ -18,7 +18,7 @@ function transByte($size)
 
 function delFile($filename){
     if(!is_file($filename)){
-        alert("Cant operate Chinese items! Please contact your server master!","file.php");
+        alert("Cant find the file,or its name has Chinese character!","file.php");
         exit();
     }else{
         unlink($filename);
