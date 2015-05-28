@@ -20,13 +20,13 @@ $dirname=$_REQUEST['dirname'];
 
 if($act=="delFile"){
     delFile($filename);
-  /* if($path=="sitefile"){
+   if($path=="sitefile"){
         ChangeUrl("file.php");
     }else{
         ChangeUrl("file.php?path=".$path);
-   }*/
+   }
 }elseif($act=="downFile"){
-    downFile($filename,$path);
+    downFile($filename);
     if($path=="sitefile"){
         ChangeUrl("file.php");
     }else{
@@ -271,7 +271,7 @@ $info = readdirectory($path);
                                             <?php echo date("Y-m-d",filectime($path."/".$val));?>
                                         </td>
                                         <td>
-                                            <a href="file.php?act=downFile&filename=<?php echo $path."/".$val;?>">Download</a>
+                                            <a href="file.php?act=downFile&filename=<?php echo $path."/".$val;?>&path=<?php echo $path;?>">Download</a>
                                             <a href="#" onclick="delFile('<?php echo $path."/".$val;?>','<?php echo $path;?>')">Delete</a>
                                         </td>
                                     
